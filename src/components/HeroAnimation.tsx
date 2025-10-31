@@ -14,25 +14,111 @@ const HeroAnimation = ({ onComplete }: { onComplete: () => void }) => {
     }));
     setParticles(particleArray);
 
-    // Play particle sound effect
-    const audio = new Audio();
-    audio.volume = 0.3;
-    // Using Web Audio API to generate a subtle whoosh sound
+    // Cinematic sound sequence using Web Audio API
     const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
-    const oscillator = audioContext.createOscillator();
-    const gainNode = audioContext.createGain();
-    
-    oscillator.connect(gainNode);
-    gainNode.connect(audioContext.destination);
-    
-    oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
-    oscillator.frequency.exponentialRampToValueAtTime(100, audioContext.currentTime + 1.5);
-    
-    gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
-    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 1.5);
-    
-    oscillator.start(audioContext.currentTime);
-    oscillator.stop(audioContext.currentTime + 1.5);
+    const masterGain = audioContext.createGain();
+    masterGain.connect(audioContext.destination);
+    masterGain.gain.value = 0.4;
+
+    const now = audioContext.currentTime;
+
+    // 1. Som ambiente etéreo inicial (sopro digital de alta frequência)
+    const ambient = audioContext.createOscillator();
+    const ambientGain = audioContext.createGain();
+    ambient.connect(ambientGain);
+    ambientGain.connect(masterGain);
+    ambient.type = 'sine';
+    ambient.frequency.setValueAtTime(2400, now);
+    ambientGain.gain.setValueAtTime(0, now);
+    ambientGain.gain.linearRampToValueAtTime(0.08, now + 0.3);
+    ambientGain.gain.linearRampToValueAtTime(0.05, now + 1.0);
+    ambient.start(now);
+    ambient.stop(now + 1.2);
+
+    // 2. Estalos cristalinos (partículas aparecendo)
+    for (let i = 0; i < 15; i++) {
+      const startTime = now + 0.2 + (i * 0.08);
+      const crystal = audioContext.createOscillator();
+      const crystalGain = audioContext.createGain();
+      crystal.connect(crystalGain);
+      crystalGain.connect(masterGain);
+      crystal.type = 'sine';
+      crystal.frequency.setValueAtTime(1800 + Math.random() * 800, startTime);
+      crystalGain.gain.setValueAtTime(0.15, startTime);
+      crystalGain.gain.exponentialRampToValueAtTime(0.01, startTime + 0.15);
+      crystal.start(startTime);
+      crystal.stop(startTime + 0.15);
+    }
+
+    // 3. Som de vórtice (partículas convergindo)
+    const vortex = audioContext.createOscillator();
+    const vortexGain = audioContext.createGain();
+    const vortexFilter = audioContext.createBiquadFilter();
+    vortex.connect(vortexFilter);
+    vortexFilter.connect(vortexGain);
+    vortexGain.connect(masterGain);
+    vortex.type = 'sawtooth';
+    vortexFilter.type = 'lowpass';
+    vortex.frequency.setValueAtTime(80, now + 1.0);
+    vortex.frequency.exponentialRampToValueAtTime(150, now + 1.8);
+    vortexFilter.frequency.setValueAtTime(300, now + 1.0);
+    vortexFilter.frequency.exponentialRampToValueAtTime(800, now + 1.8);
+    vortexGain.gain.setValueAtTime(0, now + 1.0);
+    vortexGain.gain.linearRampToValueAtTime(0.12, now + 1.3);
+    vortexGain.gain.linearRampToValueAtTime(0, now + 1.8);
+    vortex.start(now + 1.0);
+    vortex.stop(now + 1.8);
+
+    // 4. Whoosh com brilho metálico (fusão do nome)
+    const whoosh = audioContext.createOscillator();
+    const whooshGain = audioContext.createGain();
+    const whooshFilter = audioContext.createBiquadFilter();
+    whoosh.connect(whooshFilter);
+    whooshFilter.connect(whooshGain);
+    whooshGain.connect(masterGain);
+    whoosh.type = 'square';
+    whooshFilter.type = 'highpass';
+    whoosh.frequency.setValueAtTime(1200, now + 1.8);
+    whoosh.frequency.exponentialRampToValueAtTime(300, now + 2.3);
+    whooshFilter.frequency.setValueAtTime(2000, now + 1.8);
+    whooshFilter.frequency.exponentialRampToValueAtTime(800, now + 2.3);
+    whooshGain.gain.setValueAtTime(0.2, now + 1.8);
+    whooshGain.gain.exponentialRampToValueAtTime(0.01, now + 2.3);
+    whoosh.start(now + 1.8);
+    whoosh.stop(now + 2.3);
+
+    // Brilho metálico adicional
+    const shimmer = audioContext.createOscillator();
+    const shimmerGain = audioContext.createGain();
+    shimmer.connect(shimmerGain);
+    shimmerGain.connect(masterGain);
+    shimmer.type = 'triangle';
+    shimmer.frequency.setValueAtTime(3200, now + 2.0);
+    shimmer.frequency.exponentialRampToValueAtTime(2400, now + 2.5);
+    shimmerGain.gain.setValueAtTime(0.1, now + 2.0);
+    shimmerGain.gain.exponentialRampToValueAtTime(0.01, now + 2.5);
+    shimmer.start(now + 2.0);
+    shimmer.stop(now + 2.5);
+
+    // 5. Toque de piano cristalino (cargo e logo ANABB)
+    const pianoNotes = [
+      { freq: 523.25, time: 2.4 },  // C5
+      { freq: 659.25, time: 2.6 },  // E5
+      { freq: 783.99, time: 2.8 },  // G5
+    ];
+
+    pianoNotes.forEach(({ freq, time }) => {
+      const piano = audioContext.createOscillator();
+      const pianoGain = audioContext.createGain();
+      piano.connect(pianoGain);
+      pianoGain.connect(masterGain);
+      piano.type = 'sine';
+      piano.frequency.setValueAtTime(freq, now + time);
+      pianoGain.gain.setValueAtTime(0.15, now + time);
+      pianoGain.gain.exponentialRampToValueAtTime(0.01, now + time + 0.8);
+      piano.start(now + time);
+      piano.stop(now + time + 0.8);
+    });
 
     // Auto-complete after animation
     const timer = setTimeout(() => {
