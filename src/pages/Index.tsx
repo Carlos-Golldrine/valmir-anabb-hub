@@ -1,12 +1,45 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState } from "react";
+import { AnimatePresence } from "framer-motion";
+import { Globe, Instagram } from "lucide-react";
+import HeroAnimation from "@/components/HeroAnimation";
+import ProfileSection from "@/components/ProfileSection";
+import LinkCard from "@/components/LinkCard";
+import Footer from "@/components/Footer";
+import ParticleBackground from "@/components/ParticleBackground";
 
 const Index = () => {
+  const [showHero, setShowHero] = useState(true);
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
+    <div className="min-h-screen bg-background relative">
+      <ParticleBackground />
+      
+      <AnimatePresence mode="wait">
+        {showHero ? (
+          <HeroAnimation key="hero" onComplete={() => setShowHero(false)} />
+        ) : (
+          <div key="content" className="relative z-10">
+            <ProfileSection />
+            
+            <div className="max-w-2xl mx-auto px-6 pb-12 space-y-4">
+              <LinkCard
+                icon={<Globe className="w-6 h-6" />}
+                title="Site da ANABB"
+                url="https://www.anabb.org.br/"
+                delay={0.7}
+              />
+              <LinkCard
+                icon={<Instagram className="w-6 h-6" />}
+                title="Instagram"
+                url="https://instagram.com/valmircamilo"
+                delay={0.9}
+              />
+            </div>
+
+            <Footer />
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
