@@ -20,20 +20,38 @@ const HeroAnimation = ({ onComplete }: { onComplete: () => void }) => {
     const audio = new Audio('/opening-sound.mp3');
     audio.volume = 0.6;
 
-    // Função para tocar o áudio
-    const playAudio = () => {
-      if (!audioPlayed) {
-        audio.play().then(() => {
+    // Estratégia: tentar mutado primeiro, depois desmutar
+    const attemptAutoplay = async () => {
+      try {
+        // Tenta play normal primeiro
+        await audio.play();
+        setAudioPlayed(true);
+        setShowOverlay(false);
+        console.log('Audio started successfully');
+      } catch (error) {
+        console.log('Normal autoplay blocked, trying muted approach:', error);
+        
+        // Se falhar, tenta mutado
+        try {
+          audio.muted = true;
+          await audio.play();
+          
+          // Depois de 100ms, tenta desmutar
+          setTimeout(() => {
+            audio.muted = false;
+            audio.volume = 0.6;
+          }, 100);
+          
           setAudioPlayed(true);
           setShowOverlay(false);
-        }).catch(error => {
-          console.log('Audio playback failed:', error);
-        });
+        } catch (mutedError) {
+          console.log('Even muted autoplay failed:', mutedError);
+          // Mantém o overlay para capturar interação
+        }
       }
     };
 
-    // Tenta tocar imediatamente
-    playAudio();
+    attemptAutoplay();
 
     // Auto-complete after animation
     const timer = setTimeout(() => {
