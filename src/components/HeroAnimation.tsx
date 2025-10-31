@@ -5,7 +5,8 @@ import anabbLogo from "@/assets/anabb-logo.png";
 const HeroAnimation = ({ onComplete }: { onComplete: () => void }) => {
   const [particles, setParticles] = useState<Array<{ id: number; x: number; y: number; delay: number }>>([]);
   const [audioPlayed, setAudioPlayed] = useState(false);
-  const [showOverlay, setShowOverlay] = useState(true);
+  const [showCookieBanner, setShowCookieBanner] = useState(true);
+  const audioRef = useState<HTMLAudioElement>(() => new Audio('/opening-sound.mp3'))[0];
 
   useEffect(() => {
     // Generate random particles
@@ -17,41 +18,7 @@ const HeroAnimation = ({ onComplete }: { onComplete: () => void }) => {
     }));
     setParticles(particleArray);
 
-    const audio = new Audio('/opening-sound.mp3');
-    audio.volume = 0.6;
-
-    // Estratégia: tentar mutado primeiro, depois desmutar
-    const attemptAutoplay = async () => {
-      try {
-        // Tenta play normal primeiro
-        await audio.play();
-        setAudioPlayed(true);
-        setShowOverlay(false);
-        console.log('Audio started successfully');
-      } catch (error) {
-        console.log('Normal autoplay blocked, trying muted approach:', error);
-        
-        // Se falhar, tenta mutado
-        try {
-          audio.muted = true;
-          await audio.play();
-          
-          // Depois de 100ms, tenta desmutar
-          setTimeout(() => {
-            audio.muted = false;
-            audio.volume = 0.6;
-          }, 100);
-          
-          setAudioPlayed(true);
-          setShowOverlay(false);
-        } catch (mutedError) {
-          console.log('Even muted autoplay failed:', mutedError);
-          // Mantém o overlay para capturar interação
-        }
-      }
-    };
-
-    attemptAutoplay();
+    audioRef.volume = 0.6;
 
     // Auto-complete after animation
     const timer = setTimeout(() => {
@@ -60,20 +27,21 @@ const HeroAnimation = ({ onComplete }: { onComplete: () => void }) => {
 
     return () => {
       clearTimeout(timer);
-      audio.pause();
-      audio.currentTime = 0;
+      audioRef.pause();
+      audioRef.currentTime = 0;
     };
-  }, [onComplete, audioPlayed]);
+  }, [onComplete, audioRef]);
 
-  const handleOverlayClick = () => {
-    const audio = new Audio('/opening-sound.mp3');
-    audio.volume = 0.6;
-    audio.play().then(() => {
+  const handleAcceptCookies = async () => {
+    setShowCookieBanner(false);
+    
+    try {
+      await audioRef.play();
       setAudioPlayed(true);
-      setShowOverlay(false);
-    }).catch(error => {
+      console.log('Audio started after cookie acceptance');
+    } catch (error) {
       console.log('Audio playback failed:', error);
-    });
+    }
   };
 
   return (
@@ -83,13 +51,26 @@ const HeroAnimation = ({ onComplete }: { onComplete: () => void }) => {
       exit={{ opacity: 0 }}
       transition={{ duration: 0.8 }}
     >
-      {/* Overlay invisível para capturar o primeiro toque */}
-      {showOverlay && (
-        <div 
-          className="absolute inset-0 z-[60] cursor-pointer"
-          onClick={handleOverlayClick}
-          onTouchStart={handleOverlayClick}
-        />
+      {/* Cookie Banner */}
+      {showCookieBanner && (
+        <motion.div
+          className="fixed bottom-0 left-0 right-0 z-[70] bg-card border-t border-border p-4 shadow-lg"
+          initial={{ y: 100, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.5, duration: 0.4 }}
+        >
+          <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p className="text-sm text-muted-foreground text-center sm:text-left">
+              Este site utiliza recursos de áudio. Ao continuar, você concorda com a reprodução de som.
+            </p>
+            <button
+              onClick={handleAcceptCookies}
+              className="px-6 py-2 bg-institutional-gold text-background font-semibold rounded-lg hover:scale-105 transition-transform duration-200 whitespace-nowrap"
+            >
+              Aceitar e Continuar
+            </button>
+          </div>
+        </motion.div>
       )}
       {/* Animated particles background - converging to center */}
       <div className="absolute inset-0 overflow-hidden">
