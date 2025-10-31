@@ -5,6 +5,7 @@ import anabbLogo from "@/assets/anabb-logo.png";
 const HeroAnimation = ({ onComplete }: { onComplete: () => void }) => {
   const [particles, setParticles] = useState<Array<{ id: number; x: number; y: number; delay: number }>>([]);
   const [audioPlayed, setAudioPlayed] = useState(false);
+  const [showOverlay, setShowOverlay] = useState(true);
 
   useEffect(() => {
     // Generate random particles
@@ -24,6 +25,7 @@ const HeroAnimation = ({ onComplete }: { onComplete: () => void }) => {
       if (!audioPlayed) {
         audio.play().then(() => {
           setAudioPlayed(true);
+          setShowOverlay(false);
         }).catch(error => {
           console.log('Audio playback failed:', error);
         });
@@ -32,19 +34,6 @@ const HeroAnimation = ({ onComplete }: { onComplete: () => void }) => {
 
     // Tenta tocar imediatamente
     playAudio();
-
-    // Se falhar, toca na primeira interação do usuário
-    const handleInteraction = () => {
-      playAudio();
-      // Remove os listeners após o primeiro uso
-      document.removeEventListener('touchstart', handleInteraction);
-      document.removeEventListener('click', handleInteraction);
-      document.removeEventListener('mousemove', handleInteraction);
-    };
-
-    document.addEventListener('touchstart', handleInteraction, { once: true });
-    document.addEventListener('click', handleInteraction, { once: true });
-    document.addEventListener('mousemove', handleInteraction, { once: true });
 
     // Auto-complete after animation
     const timer = setTimeout(() => {
@@ -55,11 +44,19 @@ const HeroAnimation = ({ onComplete }: { onComplete: () => void }) => {
       clearTimeout(timer);
       audio.pause();
       audio.currentTime = 0;
-      document.removeEventListener('touchstart', handleInteraction);
-      document.removeEventListener('click', handleInteraction);
-      document.removeEventListener('mousemove', handleInteraction);
     };
   }, [onComplete, audioPlayed]);
+
+  const handleOverlayClick = () => {
+    const audio = new Audio('/opening-sound.mp3');
+    audio.volume = 0.6;
+    audio.play().then(() => {
+      setAudioPlayed(true);
+      setShowOverlay(false);
+    }).catch(error => {
+      console.log('Audio playback failed:', error);
+    });
+  };
 
   return (
     <motion.div
@@ -68,6 +65,14 @@ const HeroAnimation = ({ onComplete }: { onComplete: () => void }) => {
       exit={{ opacity: 0 }}
       transition={{ duration: 0.8 }}
     >
+      {/* Overlay invisível para capturar o primeiro toque */}
+      {showOverlay && (
+        <div 
+          className="absolute inset-0 z-[60] cursor-pointer"
+          onClick={handleOverlayClick}
+          onTouchStart={handleOverlayClick}
+        />
+      )}
       {/* Animated particles background - converging to center */}
       <div className="absolute inset-0 overflow-hidden">
         {particles.map((particle) => (
