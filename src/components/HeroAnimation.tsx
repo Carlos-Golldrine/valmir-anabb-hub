@@ -29,26 +29,29 @@ const HeroAnimation = ({ onComplete }: { onComplete: () => void }) => {
       exit={{ opacity: 0 }}
       transition={{ duration: 0.8 }}
     >
-      {/* Animated particles background */}
+      {/* Animated particles background - converging to center */}
       <div className="absolute inset-0 overflow-hidden">
         {particles.map((particle) => (
           <motion.div
             key={particle.id}
-            className="absolute w-1 h-1 rounded-full bg-institutional-glow/40"
+            className="absolute w-1.5 h-1.5 rounded-full bg-institutional-gold"
+            style={{
+              boxShadow: "0 0 10px hsl(45 100% 60% / 0.8)",
+            }}
             initial={{
               x: `${particle.x}vw`,
               y: `${particle.y}vh`,
-              scale: 0,
-              opacity: 0,
+              scale: 1,
+              opacity: 1,
             }}
             animate={{
-              x: ["50vw", `${particle.x}vw`, "50vw"],
-              y: ["50vh", `${particle.y}vh`, "50vh"],
-              scale: [0, 1, 0],
-              opacity: [0, 0.8, 0],
+              x: "50vw",
+              y: "50vh",
+              scale: 0.3,
+              opacity: [1, 0.8, 0],
             }}
             transition={{
-              duration: 2,
+              duration: 1.5,
               delay: particle.delay,
               ease: "easeInOut",
             }}
@@ -82,8 +85,8 @@ const HeroAnimation = ({ onComplete }: { onComplete: () => void }) => {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6, delay: 1.8 }}
         >
-          <div className="w-32 h-32 md:w-40 md:h-40 rounded-full bg-card/30 backdrop-blur-sm border border-institutional-glow/20 flex items-center justify-center box-glow">
-            <span className="text-4xl md:text-5xl font-poppins font-bold text-institutional-gold">ANABB</span>
+          <div className="w-32 h-32 md:w-40 md:h-40 rounded-full bg-card/50 backdrop-blur-sm border-2 border-institutional-gold/30 flex items-center justify-center box-glow">
+            <span className="text-4xl md:text-5xl font-poppins font-bold text-institutional-gold text-glow">ANABB</span>
           </div>
         </motion.div>
       </div>

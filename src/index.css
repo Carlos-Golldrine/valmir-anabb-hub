@@ -8,48 +8,48 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 220 25% 8%;
+    --background: 0 0% 5%;
     --foreground: 0 0% 98%;
 
-    --card: 220 20% 12%;
+    --card: 0 0% 8%;
     --card-foreground: 0 0% 98%;
 
-    --popover: 220 20% 12%;
+    --popover: 0 0% 8%;
     --popover-foreground: 0 0% 98%;
 
-    --primary: 210 100% 28%;
-    --primary-foreground: 0 0% 100%;
+    --primary: 0 0% 10%;
+    --primary-foreground: 45 100% 60%;
 
-    --secondary: 220 18% 18%;
+    --secondary: 0 0% 12%;
     --secondary-foreground: 0 0% 98%;
 
-    --muted: 220 15% 25%;
-    --muted-foreground: 0 0% 70%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 65%;
 
-    --accent: 45 100% 55%;
-    --accent-foreground: 220 25% 8%;
+    --accent: 45 100% 60%;
+    --accent-foreground: 0 0% 5%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 220 15% 20%;
-    --input: 220 15% 20%;
-    --ring: 210 100% 45%;
+    --border: 0 0% 15%;
+    --input: 0 0% 15%;
+    --ring: 45 100% 60%;
 
     --radius: 1rem;
     
     /* Custom institutional colors */
-    --institutional-blue: 210 100% 28%;
-    --institutional-gold: 45 100% 55%;
-    --institutional-glow: 210 100% 45%;
+    --institutional-gold: 45 100% 60%;
+    --institutional-gold-dark: 45 100% 45%;
+    --institutional-glow: 45 100% 70%;
     
     /* Gradients */
-    --gradient-hero: linear-gradient(135deg, hsl(220 25% 8%), hsl(220 20% 12%));
-    --gradient-card: linear-gradient(180deg, hsl(220 20% 12% / 0.8), hsl(220 20% 10% / 0.9));
+    --gradient-hero: linear-gradient(135deg, hsl(0 0% 5%), hsl(0 0% 8%));
+    --gradient-card: linear-gradient(180deg, hsl(0 0% 8% / 0.8), hsl(0 0% 6% / 0.9));
     
     /* Animations */
     --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    --glow-shadow: 0 0 30px hsl(210 100% 45% / 0.4);
+    --glow-shadow: 0 0 30px hsl(45 100% 60% / 0.3);
 
     --radius: 1rem;
 
@@ -71,7 +71,7 @@ All colors MUST be HSL.
   }
 
   .dark {
-    --background: 220 25% 8%;
+    --background: 0 0% 5%;
     --foreground: 0 0% 98%;
   }
 }
@@ -94,28 +94,15 @@ All colors MUST be HSL.
 
 @layer utilities {
   .text-glow {
-    text-shadow: 0 0 20px hsl(var(--institutional-glow) / 0.5);
+    text-shadow: 0 0 30px hsl(var(--institutional-glow) / 0.6);
   }
   
   .box-glow {
-    box-shadow: 0 0 30px hsl(var(--institutional-glow) / 0.3);
-  }
-  
-  .particle {
-    position: absolute;
-    border-radius: 50%;
-    background: radial-gradient(circle, hsl(210 100% 70%), transparent);
-    pointer-events: none;
-    animation: float 4s ease-in-out infinite;
-  }
-  
-  @keyframes float {
-    0%, 100% { transform: translateY(0) translateX(0); opacity: 0.3; }
-    50% { transform: translateY(-20px) translateX(10px); opacity: 0.8; }
+    box-shadow: 0 0 40px hsl(var(--institutional-glow) / 0.4);
   }
   
   @keyframes pulse-glow {
-    0%, 100% { box-shadow: 0 0 20px hsl(var(--institutional-glow) / 0.3); }
-    50% { box-shadow: 0 0 40px hsl(var(--institutional-glow) / 0.6); }
+    0%, 100% { box-shadow: 0 0 30px hsl(var(--institutional-glow) / 0.3); }
+    50% { box-shadow: 0 0 50px hsl(var(--institutional-glow) / 0.6); }
   }
 }

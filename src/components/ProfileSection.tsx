@@ -36,7 +36,7 @@ const ProfileSection = () => {
       </div>
 
       <motion.div
-        className="bg-card/50 backdrop-blur-sm border border-border rounded-2xl p-8 md:p-10 shadow-xl"
+        className="bg-card/80 backdrop-blur-sm border border-border rounded-2xl p-8 md:p-10 shadow-xl"
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 0.5 }}

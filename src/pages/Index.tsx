@@ -5,14 +5,12 @@ import HeroAnimation from "@/components/HeroAnimation";
 import ProfileSection from "@/components/ProfileSection";
 import LinkCard from "@/components/LinkCard";
 import Footer from "@/components/Footer";
-import ParticleBackground from "@/components/ParticleBackground";
 
 const Index = () => {
   const [showHero, setShowHero] = useState(true);
 
   return (
     <div className="min-h-screen bg-background relative">
-      <ParticleBackground />
       
       <AnimatePresence mode="wait">
         {showHero ? (

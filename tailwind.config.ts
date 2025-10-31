@@ -48,8 +48,8 @@ export default {
           foreground: "hsl(var(--card-foreground))",
         },
         institutional: {
-          blue: "hsl(var(--institutional-blue))",
           gold: "hsl(var(--institutional-gold))",
+          "gold-dark": "hsl(var(--institutional-gold-dark))",
           glow: "hsl(var(--institutional-glow))",
         },
       },
