@@ -7,9 +7,10 @@ interface LinkCardProps {
   title: string;
   url: string;
   delay?: number;
+  iconColor?: string;
 }
 
-const LinkCard = ({ icon, title, url, delay = 0 }: LinkCardProps) => {
+const LinkCard = ({ icon, title, url, delay = 0, iconColor }: LinkCardProps) => {
   return (
     <motion.a
       href={url}
@@ -23,7 +24,10 @@ const LinkCard = ({ icon, title, url, delay = 0 }: LinkCardProps) => {
     >
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
-          <div className="text-institutional-gold group-hover:text-institutional-glow transition-colors duration-300">
+          <div 
+            className={iconColor ? "" : "text-institutional-gold group-hover:text-institutional-glow transition-colors duration-300"}
+            style={iconColor ? { color: iconColor } : undefined}
+          >
             {icon}
           </div>
           <span className="text-lg font-medium text-foreground group-hover:text-institutional-gold transition-colors duration-300">

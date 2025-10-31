@@ -39,10 +39,11 @@ const Index = () => {
               </button>
 
               <LinkCard
-                icon={<MessageCircle className="w-6 h-6" />}
+                icon={<MessageCircle className="w-6 h-6" style={{ color: '#25D366' }} />}
                 title="WhatsApp"
                 url="https://wa.me/5561981240674?text=ola%20vim%20pelo%20goldcard"
                 delay={0.7}
+                iconColor="#25D366"
               />
               <LinkCard
                 icon={<Globe className="w-6 h-6" />}
@@ -51,16 +52,18 @@ const Index = () => {
                 delay={0.8}
               />
               <LinkCard
-                icon={<Linkedin className="w-6 h-6" />}
+                icon={<Linkedin className="w-6 h-6" style={{ color: '#0A66C2' }} />}
                 title="LinkedIn"
                 url="https://www.linkedin.com/in/valmir-marques-camilo-798574a6"
                 delay={0.9}
+                iconColor="#0A66C2"
               />
               <LinkCard
-                icon={<Instagram className="w-6 h-6" />}
+                icon={<Instagram className="w-6 h-6" style={{ color: '#E4405F' }} />}
                 title="Instagram"
                 url="https://instagram.com/valmircamilo"
                 delay={1.0}
+                iconColor="#E4405F"
               />
             </div>
 
