@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import anabbLogo from "@/assets/anabb-logo.png";
 
 const HeroAnimation = ({ onComplete }: { onComplete: () => void }) => {
   const [particles, setParticles] = useState<Array<{ id: number; x: number; y: number; delay: number }>>([]);
@@ -72,6 +73,21 @@ const HeroAnimation = ({ onComplete }: { onComplete: () => void }) => {
 
       {/* Central content */}
       <div className="relative z-10 text-center px-6">
+        <motion.div
+          className="mb-8 flex justify-center"
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.2 }}
+        >
+          <div className="w-40 h-40 md:w-48 md:h-48 rounded-full overflow-hidden border-4 border-institutional-gold/30 shadow-2xl box-glow">
+            <img 
+              src={anabbLogo} 
+              alt="Logo ANABB" 
+              className="w-full h-full object-cover"
+            />
+          </div>
+        </motion.div>
+
         <motion.h1
           className="text-4xl md:text-6xl lg:text-7xl font-poppins font-bold text-foreground mb-4 text-glow"
           initial={{ opacity: 0, scale: 0.8 }}
