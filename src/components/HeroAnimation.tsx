@@ -180,24 +180,13 @@ const HeroAnimation = ({ onComplete }: { onComplete: () => void }) => {
         </motion.h1>
 
         <motion.p
-          className="text-xl md:text-2xl text-muted-foreground font-light tracking-wide mb-8"
+          className="text-xl md:text-2xl text-muted-foreground font-light tracking-wide"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 1.2 }}
         >
           Presidente da ANABB
         </motion.p>
-
-        <motion.div
-          className="flex justify-center"
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6, delay: 1.8 }}
-        >
-          <div className="w-32 h-32 md:w-40 md:h-40 rounded-full bg-card/50 backdrop-blur-sm border-2 border-institutional-gold/30 flex items-center justify-center box-glow">
-            <span className="text-4xl md:text-5xl font-poppins font-bold text-institutional-gold text-glow">ANABB</span>
-          </div>
-        </motion.div>
       </div>
     </motion.div>
   );
