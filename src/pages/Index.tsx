@@ -9,6 +9,7 @@ import AboutDialog from "@/components/AboutDialog";
 import WhatsAppLogo from "@/assets/logos/WhatsAppLogo";
 import LinkedInLogo from "@/assets/logos/LinkedInLogo";
 import InstagramLogo from "@/assets/logos/InstagramLogo";
+import FacebookLogo from "@/assets/logos/FacebookLogo";
 
 const Index = () => {
   const [showHero, setShowHero] = useState(true);
@@ -64,6 +65,12 @@ const Index = () => {
                 title="Instagram"
                 url="https://instagram.com/valmircamilo"
                 delay={1.0}
+              />
+              <LinkCard
+                icon={<FacebookLogo size={28} />}
+                title="Facebook"
+                url="https://www.facebook.com/profile.php?id=100000669888293&ref=_ig_profile_ac"
+                delay={1.1}
               />
             </div>
 
