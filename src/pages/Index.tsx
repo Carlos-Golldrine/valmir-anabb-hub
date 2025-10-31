@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
-import { Globe, Instagram, User } from "lucide-react";
+import { Globe, Instagram, User, Linkedin } from "lucide-react";
 import HeroAnimation from "@/components/HeroAnimation";
 import ProfileSection from "@/components/ProfileSection";
 import LinkCard from "@/components/LinkCard";
@@ -43,6 +43,12 @@ const Index = () => {
                 title="Site da ANABB"
                 url="https://www.anabb.org.br/"
                 delay={0.7}
+              />
+              <LinkCard
+                icon={<Linkedin className="w-6 h-6" />}
+                title="LinkedIn"
+                url="https://www.linkedin.com/in/valmir-marques-camilo-798574a6"
+                delay={0.8}
               />
               <LinkCard
                 icon={<Instagram className="w-6 h-6" />}
