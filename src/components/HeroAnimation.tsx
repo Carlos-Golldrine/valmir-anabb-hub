@@ -138,7 +138,7 @@ const HeroAnimation = ({ onComplete }: { onComplete: () => void }) => {
       exit={{ opacity: 0 }}
       transition={{ duration: 0.8 }}
     >
-      {/* Animated particles background - converging to center then exploding */}
+      {/* Animated particles background - converging to center */}
       <div className="absolute inset-0 overflow-hidden">
         {particles.map((particle) => (
           <motion.div
@@ -154,28 +154,27 @@ const HeroAnimation = ({ onComplete }: { onComplete: () => void }) => {
               opacity: 1,
             }}
             animate={{
-              x: ["50vw", "50vw", `${particle.x * 2}vw`],
-              y: ["50vh", "50vh", `${particle.y * 2}vh`],
-              scale: [0.3, 0.5, 0],
-              opacity: [1, 1, 0],
+              x: "50vw",
+              y: "50vh",
+              scale: 0.3,
+              opacity: [1, 0.8, 0],
             }}
             transition={{
-              duration: 2.2,
+              duration: 1.5,
               delay: particle.delay,
-              times: [0, 0.6, 1],
-              ease: ["easeInOut", "easeOut", "easeOut"],
+              ease: "easeInOut",
             }}
           />
         ))}
       </div>
 
-      {/* Central content - appears after explosion */}
+      {/* Central content */}
       <div className="relative z-10 text-center px-6">
         <motion.h1
           className="text-4xl md:text-6xl lg:text-7xl font-poppins font-bold text-foreground mb-4 text-glow"
-          initial={{ opacity: 0, scale: 0.5 }}
+          initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, delay: 1.8 }}
+          transition={{ duration: 0.8, delay: 0.5 }}
         >
           Valmir Marques Camilo
         </motion.h1>
@@ -184,7 +183,7 @@ const HeroAnimation = ({ onComplete }: { onComplete: () => void }) => {
           className="text-xl md:text-2xl text-muted-foreground font-light tracking-wide"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 2.4 }}
+          transition={{ duration: 0.6, delay: 1.2 }}
         >
           Presidente da ANABB
         </motion.p>
