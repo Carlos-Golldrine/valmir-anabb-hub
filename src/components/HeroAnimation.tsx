@@ -14,6 +14,13 @@ const HeroAnimation = ({ onComplete }: { onComplete: () => void }) => {
     }));
     setParticles(particleArray);
 
+    // Play opening sound
+    const audio = new Audio('/opening-sound.mp3');
+    audio.volume = 0.6;
+    audio.play().catch(error => {
+      console.log('Audio playback failed:', error);
+    });
+
     // Auto-complete after animation
     const timer = setTimeout(() => {
       onComplete();
@@ -21,6 +28,8 @@ const HeroAnimation = ({ onComplete }: { onComplete: () => void }) => {
 
     return () => {
       clearTimeout(timer);
+      audio.pause();
+      audio.currentTime = 0;
     };
   }, [onComplete]);
 
