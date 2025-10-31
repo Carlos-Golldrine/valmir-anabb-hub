@@ -43,15 +43,15 @@ const Index = () => {
               </button>
 
               <LinkCard
-                icon={<WhatsAppLogo size={28} />}
-                title="WhatsApp"
-                url="https://wa.me/5561981240674?text=ola%20vim%20pelo%20goldcard"
-                delay={0.7}
-              />
-              <LinkCard
                 icon={<Globe className="w-6 h-6" />}
                 title="Site da ANABB"
                 url="https://www.anabb.org.br/"
+                delay={0.7}
+              />
+              <LinkCard
+                icon={<WhatsAppLogo size={28} />}
+                title="WhatsApp"
+                url="https://wa.me/5561981240674?text=ola%20vim%20pelo%20goldcard"
                 delay={0.8}
               />
               <LinkCard
