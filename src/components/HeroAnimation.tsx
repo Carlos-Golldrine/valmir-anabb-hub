@@ -14,12 +14,35 @@ const HeroAnimation = ({ onComplete }: { onComplete: () => void }) => {
     }));
     setParticles(particleArray);
 
+    // Play particle sound effect
+    const audio = new Audio();
+    audio.volume = 0.3;
+    // Using Web Audio API to generate a subtle whoosh sound
+    const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+    const oscillator = audioContext.createOscillator();
+    const gainNode = audioContext.createGain();
+    
+    oscillator.connect(gainNode);
+    gainNode.connect(audioContext.destination);
+    
+    oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+    oscillator.frequency.exponentialRampToValueAtTime(100, audioContext.currentTime + 1.5);
+    
+    gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 1.5);
+    
+    oscillator.start(audioContext.currentTime);
+    oscillator.stop(audioContext.currentTime + 1.5);
+
     // Auto-complete after animation
     const timer = setTimeout(() => {
       onComplete();
     }, 3500);
 
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(timer);
+      audioContext.close();
+    };
   }, [onComplete]);
 
   return (
