@@ -1,11 +1,14 @@
 import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
-import { Globe, Instagram, User, Linkedin, MessageCircle } from "lucide-react";
+import { Globe, User } from "lucide-react";
 import HeroAnimation from "@/components/HeroAnimation";
 import ProfileSection from "@/components/ProfileSection";
 import LinkCard from "@/components/LinkCard";
 import Footer from "@/components/Footer";
 import AboutDialog from "@/components/AboutDialog";
+import WhatsAppLogo from "@/assets/logos/WhatsAppLogo";
+import LinkedInLogo from "@/assets/logos/LinkedInLogo";
+import InstagramLogo from "@/assets/logos/InstagramLogo";
 
 const Index = () => {
   const [showHero, setShowHero] = useState(true);
@@ -39,11 +42,10 @@ const Index = () => {
               </button>
 
               <LinkCard
-                icon={<MessageCircle className="w-6 h-6" style={{ color: '#25D366' }} />}
+                icon={<WhatsAppLogo size={28} />}
                 title="WhatsApp"
                 url="https://wa.me/5561981240674?text=ola%20vim%20pelo%20goldcard"
                 delay={0.7}
-                iconColor="#25D366"
               />
               <LinkCard
                 icon={<Globe className="w-6 h-6" />}
@@ -52,18 +54,16 @@ const Index = () => {
                 delay={0.8}
               />
               <LinkCard
-                icon={<Linkedin className="w-6 h-6" style={{ color: '#0A66C2' }} />}
+                icon={<LinkedInLogo size={28} />}
                 title="LinkedIn"
                 url="https://www.linkedin.com/in/valmir-marques-camilo-798574a6"
                 delay={0.9}
-                iconColor="#0A66C2"
               />
               <LinkCard
-                icon={<Instagram className="w-6 h-6" style={{ color: '#E4405F' }} />}
+                icon={<InstagramLogo size={28} />}
                 title="Instagram"
                 url="https://instagram.com/valmircamilo"
                 delay={1.0}
-                iconColor="#E4405F"
               />
             </div>
 

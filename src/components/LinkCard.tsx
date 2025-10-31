@@ -24,10 +24,7 @@ const LinkCard = ({ icon, title, url, delay = 0, iconColor }: LinkCardProps) => 
     >
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
-          <div 
-            className={iconColor ? "" : "text-institutional-gold group-hover:text-institutional-glow transition-colors duration-300"}
-            style={iconColor ? { color: iconColor } : undefined}
-          >
+          <div className={!iconColor ? "text-institutional-gold group-hover:text-institutional-glow transition-colors duration-300" : ""}>
             {icon}
           </div>
           <span className="text-lg font-medium text-foreground group-hover:text-institutional-gold transition-colors duration-300">
