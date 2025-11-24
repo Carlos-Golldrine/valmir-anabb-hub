@@ -36,7 +36,7 @@ const Index = () => {
                       <User className="w-6 h-6" />
                     </div>
                     <span className="text-lg font-medium text-foreground group-hover:text-institutional-gold transition-colors duration-300">
-                      Sobre
+                      Quem sou?
                     </span>
                   </div>
                 </div>
