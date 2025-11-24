@@ -44,7 +44,7 @@ const Index = () => {
 
               <LinkCard
                 icon={<Globe className="w-6 h-6" />}
-                title="Site da ANABB"
+                title="Conheça a ANABB"
                 url="https://www.anabb.org.br/"
                 delay={0.7}
               />

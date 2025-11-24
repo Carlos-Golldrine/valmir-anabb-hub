@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import anabbLogo from "@/assets/anabb-logo.png";
+import valmirPhoto from "@/assets/valmir.jpg";
 
 const HeroAnimation = ({ onComplete }: { onComplete: () => void }) => {
   const [particles, setParticles] = useState<Array<{ id: number; x: number; y: number; delay: number }>>([]);
@@ -81,8 +81,8 @@ const HeroAnimation = ({ onComplete }: { onComplete: () => void }) => {
         >
           <div className="w-40 h-40 md:w-48 md:h-48 rounded-full overflow-hidden border-4 border-institutional-gold/30 shadow-2xl box-glow">
             <img 
-              src={anabbLogo} 
-              alt="Logo ANABB" 
+              src={valmirPhoto} 
+              alt="Valmir Marques Camilo" 
               className="w-full h-full object-cover"
             />
           </div>
